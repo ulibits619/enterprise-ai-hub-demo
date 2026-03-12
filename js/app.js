@@ -646,7 +646,8 @@ function appendMessage(type, content, tokens) {
         metaHtml += `
             <div class="chat-message-actions">
                 <button class="chat-msg-action-btn" title="复制" onclick="copyMsg(this)"><i class="ri-file-copy-line"></i></button>
-                <button class="chat-msg-action-btn" title="点赞" onclick="likeMsg(this)"><i class="ri-thumb-up-line"></i></button>
+                <button class="chat-msg-action-btn feedback-btn" title="满意" onclick="likeMsg(this)"><i class="ri-thumb-up-line"></i></button>
+                <button class="chat-msg-action-btn feedback-btn" title="不满意" onclick="dislikeMsg(this)"><i class="ri-thumb-down-line"></i></button>
                 <button class="chat-msg-action-btn" title="重新生成"><i class="ri-refresh-line"></i></button>
             </div>`;
     }
@@ -733,6 +734,10 @@ function loadHistoryChat(idx) {
     document.querySelectorAll('.chat-history-item').forEach((item, i) => {
         item.classList.toggle('active', i === idx);
     });
+    // Also highlight sidebar sub-items
+    document.querySelectorAll('#sidebar-chat-history .nav-sub-item').forEach((item, i) => {
+        item.classList.toggle('active', i === idx);
+    });
     if (idx === 0) {
         clearChat();
         return;
@@ -776,7 +781,8 @@ function loadHistoryChat(idx) {
             metaHtml += `
                 <div class="chat-message-actions">
                     <button class="chat-msg-action-btn" title="复制" onclick="copyMsg(this)"><i class="ri-file-copy-line"></i></button>
-                    <button class="chat-msg-action-btn" title="点赞" onclick="likeMsg(this)"><i class="ri-thumb-up-line"></i></button>
+                    <button class="chat-msg-action-btn feedback-btn" title="满意" onclick="likeMsg(this)"><i class="ri-thumb-up-line"></i></button>
+                    <button class="chat-msg-action-btn feedback-btn" title="不满意" onclick="dislikeMsg(this)"><i class="ri-thumb-down-line"></i></button>
                 </div>`;
         }
 
@@ -804,15 +810,42 @@ function copyMsg(btn) {
     });
 }
 
-// Like message
+// Like message (thumbs up)
 function likeMsg(btn) {
     const icon = btn.querySelector('i');
+    const actions = btn.closest('.chat-message-actions');
+    // Reset dislike if active
+    const dislikeBtn = actions.querySelector('[title="不满意"]');
+    if (dislikeBtn) {
+        dislikeBtn.querySelector('i').className = 'ri-thumb-down-line';
+        dislikeBtn.style.color = '';
+    }
     if (icon.className === 'ri-thumb-up-line') {
         icon.className = 'ri-thumb-up-fill';
-        btn.style.color = 'var(--accent)';
-        showToast('success', '感谢你的反馈！');
+        btn.style.color = '#22c55e';
+        showToast('success', '感谢你的认可！');
     } else {
         icon.className = 'ri-thumb-up-line';
+        btn.style.color = '';
+    }
+}
+
+// Dislike message (thumbs down)
+function dislikeMsg(btn) {
+    const icon = btn.querySelector('i');
+    const actions = btn.closest('.chat-message-actions');
+    // Reset like if active
+    const likeBtn = actions.querySelector('[title="满意"]');
+    if (likeBtn) {
+        likeBtn.querySelector('i').className = 'ri-thumb-up-line';
+        likeBtn.style.color = '';
+    }
+    if (icon.className === 'ri-thumb-down-line') {
+        icon.className = 'ri-thumb-down-fill';
+        btn.style.color = '#ef4444';
+        showToast('info', '感谢反馈，我们会持续改进');
+    } else {
+        icon.className = 'ri-thumb-down-line';
         btn.style.color = '';
     }
 }
