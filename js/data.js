@@ -1,5 +1,52 @@
 // ===== Mock Data =====
 
+// Chat History Data
+const CHAT_HISTORY_DATA = [
+    {
+        id: 0, title: '新对话', messages: []
+    },
+    {
+        id: 1, title: 'Python数据处理脚本',
+        messages: [
+            { role: 'user', content: '帮我写一个Python脚本，读取CSV文件并统计每列的缺失值数量', time: '昨天 14:32' },
+            { role: 'ai', content: '好的，以下是一个读取CSV文件并统计缺失值的Python脚本：\n\n```python\nimport pandas as pd\n\ndef analyze_missing(file_path):\n    df = pd.read_csv(file_path)\n    missing = df.isnull().sum()\n    total = len(df)\n    \n    print(f"数据集共 {total} 行")\n    print("\\n缺失值统计:")\n    for col in df.columns:\n        count = missing[col]\n        pct = (count / total) * 100\n        print(f"  {col}: {count} ({pct:.1f}%)")\n\nanalyze_missing("data.csv")\n```\n\n这个脚本会输出每列的缺失值数量和占比百分比。', time: '昨天 14:33' },
+            { role: 'user', content: '能不能增加导出缺失值报告到Excel的功能？', time: '昨天 14:35' },
+            { role: 'ai', content: '当然可以！下面是增强版，会将结果导出到Excel：\n\n```python\nimport pandas as pd\n\ndef analyze_and_export(input_file, output_file="missing_report.xlsx"):\n    df = pd.read_csv(input_file)\n    report = pd.DataFrame({\n        "列名": df.columns,\n        "缺失值数量": df.isnull().sum().values,\n        "缺失率(%)": (df.isnull().sum().values / len(df) * 100).round(2),\n        "数据类型": df.dtypes.values.astype(str)\n    })\n    report.to_excel(output_file, index=False)\n    print(f"报告已导出至: {output_file}")\n\nanalyze_and_export("data.csv")\n```\n\n执行后会在当前目录生成`missing_report.xlsx`文件。', time: '昨天 14:36' }
+        ]
+    },
+    {
+        id: 2, title: 'Q1营销方案讨论',
+        messages: [
+            { role: 'user', content: '我需要制定Q1的数字营销方案，主要面向B端企业客户，预算50万，请给出框架建议', time: '昨天 10:15' },
+            { role: 'ai', content: '## Q1 B端数字营销方案框架\n\n**预算分配建议（50万）：**\n\n| 渠道 | 预算占比 | 金额 | 预期效果 |\n|------|---------|------|----------|\n| 内容营销 | 30% | 15万 | 白皮书、案例研究 |\n| 搜索广告(SEM) | 25% | 12.5万 | 精准获客 |\n| 行业活动/峰会 | 20% | 10万 | 品牌影响力 |\n| 社交媒体(LinkedIn) | 15% | 7.5万 | 思想领袖 |\n| 邮件营销 | 10% | 5万 | 存量客户激活 |\n\n**关键指标(KPI)：**\n- 营销合格线索(MQL): ≥200个\n- 内容下载量: ≥1000次\n- 官网访问增长: ≥30%\n\n需要我详细展开某个渠道的执行计划吗？', time: '昨天 10:17' },
+            { role: 'user', content: '请详细展开内容营销的执行计划', time: '昨天 10:20' },
+            { role: 'ai', content: '## 内容营销执行计划（15万预算）\n\n**月度内容排期：**\n\n**1月 - 建立认知**\n- 发布行业趋势白皮书（外包费用3万）\n- 每周2篇深度技术博客\n- 制作1个产品功能演示视频\n\n**2月 - 深度转化**\n- 3个客户成功案例（含数据佐证）\n- 举办1场线上研讨会（邀约行业KOL）\n- 产出ROI计算器互动工具\n\n**3月 - 收割转化** \n- 发布解决方案对比指南\n- 推出免费试用+内容引导流程\n- 季度营销效果复盘报告\n\n**内容分发矩阵：** 官网博客 → 微信公众号 → LinkedIn → 知乎专栏 → 邮件推送', time: '昨天 10:22' }
+        ]
+    },
+    {
+        id: 3, title: 'API接口文档生成',
+        messages: [
+            { role: 'user', content: '帮我为一个用户管理模块生成RESTful API接口文档，包括增删改查', time: '3月9日 15:40' },
+            { role: 'ai', content: '## 用户管理模块 API 文档\n\n### 基础信息\n- **Base URL:** `/api/v1`\n- **认证方式:** Bearer Token\n- **Content-Type:** application/json\n\n---\n\n### 1. 获取用户列表\n`GET /users?page=1&size=20&keyword=`\n\n**Response 200:**\n```json\n{\n  "code": 0,\n  "data": {\n    "total": 100,\n    "list": [{"id": 1, "name": "张三", "email": "..."}]\n  }\n}\n```\n\n### 2. 创建用户\n`POST /users`\n\n**Request Body:**\n```json\n{\n  "name": "张三",\n  "email": "zhangsan@company.com",\n  "role": "developer",\n  "department": "研发部"\n}\n```\n\n### 3. 更新用户\n`PUT /users/:id`\n\n### 4. 删除用户\n`DELETE /users/:id`\n\n所有接口均需 Bearer Token 认证，返回统一的 `{code, message, data}` 格式。', time: '3月9日 15:42' }
+        ]
+    },
+    {
+        id: 4, title: '数据库优化建议',
+        messages: [
+            { role: 'user', content: '我们的PostgreSQL数据库查询越来越慢，有一个订单表约5000万行，主要慢查询是按时间范围+用户ID查订单，请给出优化建议', time: '3月9日 11:05' },
+            { role: 'ai', content: '## PostgreSQL 大表查询优化建议\n\n### 1. 索引优化（立即见效）\n```sql\n-- 复合索引：覆盖最常用查询模式\nCREATE INDEX CONCURRENTLY idx_orders_user_time \n  ON orders(user_id, created_at DESC);\n\n-- 部分索引：仅索引近期数据\nCREATE INDEX idx_orders_recent \n  ON orders(user_id, created_at) \n  WHERE created_at > NOW() - INTERVAL \'90 days\';\n```\n\n### 2. 表分区（中期方案）\n```sql\n-- 按月分区\nCREATE TABLE orders (\n  id BIGSERIAL, user_id BIGINT, \n  created_at TIMESTAMPTZ\n) PARTITION BY RANGE (created_at);\n```\n\n### 3. 查询优化\n- 避免 `SELECT *`，只查必要字段\n- 使用 `EXPLAIN ANALYZE` 分析执行计划\n- 配置 `work_mem` 和 `shared_buffers`\n\n### 4. 预期效果\n优化后查询响应时间预计从 **5-10秒** 降至 **50-200ms**。', time: '3月9日 11:08' }
+        ]
+    },
+    {
+        id: 5, title: '竞品分析报告',
+        messages: [
+            { role: 'user', content: '帮我做一个企业AI助手产品的竞品分析，对比主流产品的核心功能和定价', time: '3月9日 09:20' },
+            { role: 'ai', content: '## 企业AI助手竞品分析\n\n| 维度 | Microsoft Copilot | Google Duet AI | 百度智能云 | 阿里通义 |\n|------|-------------------|----------------|----------|--------|\n| **多轮对话** | ✅ | ✅ | ✅ | ✅ |\n| **代码生成** | ✅ GitHub版 | ✅ | ⚠️ 有限 | ✅ |\n| **文档处理** | ✅ Office集成 | ✅ Workspace | ✅ | ✅ |\n| **企业知识库** | ✅ | ✅ | ✅ | ✅ |\n| **私有部署** | ⚠️ 有限 | ❌ | ✅ | ✅ |\n| **定价(人/月)** | ¥220 | ¥200 | ¥150 | ¥99起 |\n| **数据安全** | 高 | 高 | 高 | 高 |\n\n**关键洞察：**\n1. 国际产品在生态集成上领先，国产方案在私有部署和定价上有优势\n2. 差异化机会：垂直行业定制 + 本地化数据安全合规\n3. 建议定价区间：¥120-180/人/月', time: '3月9日 09:23' }
+        ]
+    }
+];
+
+
 const APPS_DATA = [
     {
         id: 1, name: 'AI 智能对话', type: 'chat', typeName: '智能对话',

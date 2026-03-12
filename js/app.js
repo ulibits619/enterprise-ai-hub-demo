@@ -728,18 +728,71 @@ function clearChat() {
     showToast('info', '已新建对话');
 }
 
-// Load history chat (demo: just show toast)
+// Load history chat (renders actual conversation from CHAT_HISTORY_DATA)
 function loadHistoryChat(idx) {
-    const titles = ['新对话', 'Python数据处理脚本', 'Q1营销方案讨论', 'API接口文档生成', '数据库优化建议', '竞品分析报告'];
     // highlight active
     document.querySelectorAll('.chat-history-item').forEach((item, i) => {
         item.classList.toggle('active', i === idx);
     });
     if (idx === 0) {
         clearChat();
-    } else {
-        showToast('info', '加载对话: ' + titles[idx]);
+        return;
     }
+
+    const history = CHAT_HISTORY_DATA[idx];
+    if (!history || !history.messages.length) {
+        showToast('info', '该对话暂无记录');
+        return;
+    }
+
+    // Clear current chat and hide welcome
+    const container = document.getElementById('chat-messages');
+    const welcome = document.getElementById('chat-welcome');
+    if (welcome) welcome.style.display = 'none';
+
+    // Remove all messages except welcome
+    const msgs = container.querySelectorAll('.chat-message');
+    msgs.forEach(m => m.remove());
+
+    // Render history messages
+    history.messages.forEach(msg => {
+        const el = document.createElement('div');
+        el.className = 'chat-message ' + (msg.role === 'user' ? 'user' : 'ai');
+        const avatarLetter = msg.role === 'user' ? 'A' : 'AI';
+
+        // Format content: convert markdown code blocks to styled divs
+        let formattedContent = msg.content
+            .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="code-block"><code>$2</code></pre>')
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+            .replace(/## (.+?)(<br>|$)/g, '<h3 style="margin:8px 0 4px;font-size:15px;">$1</h3>')
+            .replace(/### (.+?)(<br>|$)/g, '<h4 style="margin:6px 0 4px;font-size:14px;">$1</h4>')
+            .replace(/\| (.+)/g, (match) => {
+                return '<div style="font-family:monospace;font-size:12px;line-height:1.8;">' + match + '</div>';
+            });
+
+        let metaHtml = `<span>${msg.time}</span>`;
+        if (msg.role === 'ai') {
+            metaHtml += `
+                <div class="chat-message-actions">
+                    <button class="chat-msg-action-btn" title="复制" onclick="copyMsg(this)"><i class="ri-file-copy-line"></i></button>
+                    <button class="chat-msg-action-btn" title="点赞" onclick="likeMsg(this)"><i class="ri-thumb-up-line"></i></button>
+                </div>`;
+        }
+
+        el.innerHTML = `
+            <div class="chat-message-avatar">${avatarLetter}</div>
+            <div>
+                <div class="chat-message-content">${formattedContent}</div>
+                <div class="chat-message-meta">${metaHtml}</div>
+            </div>
+        `;
+        container.appendChild(el);
+    });
+
+    container.scrollTop = container.scrollHeight;
+    showToast('info', '已加载对话: ' + history.title);
 }
 
 // Copy message
