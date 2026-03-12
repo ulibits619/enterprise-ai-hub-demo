@@ -24,25 +24,25 @@
                     <div class="login-logo">
                         <i class="ri-brain-line"></i>
                     </div>
-                    <h1>企业AI应用门户</h1>
-                    <p class="login-subtitle">Enterprise AI Hub</p>
+                    <h1 data-i18n="login.title">企业AI应用门户</h1>
+                    <p class="login-subtitle" data-i18n="login.subtitle">Enterprise AI Hub</p>
                 </div>
                 <div class="login-features">
                     <div class="login-feature-item">
                         <i class="ri-apps-2-line"></i>
-                        <span>统一AI入口，协同效率提升30%</span>
+                        <span data-i18n="login.feat1">统一AI入口，协同效率提升30%</span>
                     </div>
                     <div class="login-feature-item">
                         <i class="ri-store-3-line"></i>
-                        <span>应用商店化资产管理与复用</span>
+                        <span data-i18n="login.feat2">应用商店化资产管理与复用</span>
                     </div>
                     <div class="login-feature-item">
                         <i class="ri-bar-chart-grouped-line"></i>
-                        <span>全链路数据驱动决策</span>
+                        <span data-i18n="login.feat3">全链路数据驱动决策</span>
                     </div>
                     <div class="login-feature-item">
                         <i class="ri-shield-check-line"></i>
-                        <span>企业级权限与安全保障</span>
+                        <span data-i18n="login.feat4">企业级权限与安全保障</span>
                     </div>
                 </div>
             </div>
@@ -61,18 +61,18 @@
                         </div>
                         <div class="form-options">
                             <label class="checkbox-label">
-                                <input type="checkbox" checked> 记住登录状态
+                                <input type="checkbox" checked> <span data-i18n="login.remember">记住登录状态</span>
                             </label>
-                            <a href="#" class="forgot-link">忘记密码？</a>
+                            <a href="#" class="forgot-link" data-i18n="login.forgot">忘记密码？</a>
                         </div>
                         <button type="submit" class="btn-primary btn-login" id="login-btn">
-                            <i class="ri-login-box-line"></i> 登 录
+                            <i class="ri-login-box-line"></i> <span data-i18n="login.btn">登 录</span>
                         </button>
                         <div class="login-divider">
-                            <span>或</span>
+                            <span data-i18n="login.or">或</span>
                         </div>
                         <button type="button" class="btn-sso" onclick="handleLogin(event)">
-                            <i class="ri-building-line"></i> 企业SSO统一登录
+                            <i class="ri-building-line"></i> <span data-i18n="login.sso">企业SSO统一登录</span>
                         </button>
                     </form>
                 </div>
@@ -93,11 +93,11 @@
             <nav class="sidebar-nav">
                 <a class="nav-item active" data-page="home" onclick="navigate('home')">
                     <i class="ri-chat-smile-2-line"></i>
-                    <span>AI 对话</span>
+                    <span data-i18n="nav.chat">AI 对话</span>
                 </a>
                 <div class="nav-sub-list" id="sidebar-chat-history">
                     <a class="nav-sub-item active" onclick="loadHistoryChat(0)">
-                        <i class="ri-chat-new-line"></i><span>新对话</span>
+                        <i class="ri-chat-new-line"></i><span data-i18n="history.new">新对话</span>
                     </a>
                     <div class="nav-sub-divider">昨天</div>
                     <a class="nav-sub-item" onclick="loadHistoryChat(1)">
@@ -119,36 +119,36 @@
                 </div>
                 <a class="nav-item" data-page="apps" onclick="navigate('apps')">
                     <i class="ri-apps-2-line"></i>
-                    <span>应用中心</span>
+                    <span data-i18n="nav.apps">应用中心</span>
                 </a>
                 <a class="nav-item" data-page="store" onclick="navigate('store')">
                     <i class="ri-store-3-line"></i>
-                    <span>资产商店</span>
+                    <span data-i18n="nav.store">资产商店</span>
                 </a>
                 <a class="nav-item" data-page="tools" onclick="navigate('tools')">
                     <i class="ri-tools-line"></i>
-                    <span>部门工具</span>
+                    <span data-i18n="nav.tools">部门工具</span>
                 </a>
                 <a class="nav-item" data-page="workspace" onclick="navigate('workspace')">
                     <i class="ri-briefcase-line"></i>
-                    <span>个人工作台</span>
+                    <span data-i18n="nav.workspace">个人工作台</span>
                 </a>
                 <div class="nav-divider"></div>
                 <a class="nav-item" data-page="dashboard" onclick="navigate('dashboard')">
                     <i class="ri-bar-chart-grouped-line"></i>
-                    <span>数据看板</span>
+                    <span data-i18n="nav.dashboard">数据看板</span>
                 </a>
                 <a class="nav-item" data-page="admin" onclick="navigate('admin')">
                     <i class="ri-settings-3-line"></i>
-                    <span>管理后台</span>
+                    <span data-i18n="nav.admin">管理后台</span>
                 </a>
             </nav>
             <div class="sidebar-footer">
                 <div class="sidebar-user">
                     <div class="avatar">A</div>
                     <div class="user-info">
-                        <span class="user-name">管理员</span>
-                        <span class="user-role">超级管理员</span>
+                        <span class="user-name" data-i18n="nav.user.name">管理员</span>
+                        <span class="user-role" data-i18n="nav.user.role">超级管理员</span>
                     </div>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                 <div class="header-center">
                     <div class="global-search">
                         <i class="ri-search-line"></i>
-                        <input type="text" placeholder="搜索应用、资产、提示词..." id="global-search">
+                        <input type="text" placeholder="搜索应用、资产、提示词..." id="global-search" data-i18n-placeholder="header.search">
                     </div>
                 </div>
                 <div class="header-right">
@@ -180,9 +180,12 @@
                     <button class="header-icon-btn" title="主题切换" onclick="toggleTheme()">
                         <i class="ri-moon-line" id="theme-icon"></i>
                     </button>
+                    <button class="header-icon-btn lang-toggle-btn" title="中英文切换" onclick="toggleLang()">
+                        <span id="lang-btn" style="font-size:12px;font-weight:700;letter-spacing:-0.5px;">中/EN</span>
+                    </button>
                     <div class="header-user" onclick="handleLogout()">
                         <div class="avatar-sm">A</div>
-                        <span>退出</span>
+                        <span data-i18n="header.logout">退出</span>
                     </div>
                 </div>
             </header>
@@ -202,8 +205,8 @@
                                         <i class="ri-brain-line"></i>
                                     </div>
                                     <div>
-                                        <h2>AI 智能助手</h2>
-                                        <span class="chat-model-tag">GPT-4o · 企业版</span>
+                                        <h2 data-i18n="chat.title">AI 智能助手</h2>
+                                        <span class="chat-model-tag" data-i18n="chat.model">GPT-4o · 企业版</span>
                                     </div>
                                 </div>
                                 <div class="chat-header-right">
@@ -226,25 +229,24 @@
                                     <div class="chat-welcome-icon">
                                         <i class="ri-brain-line"></i>
                                     </div>
-                                    <h2>你好，欢迎使用 AI 智能助手</h2>
-                                    <p>我可以帮你编写代码、分析数据、生成文档、回答问题等</p>
+                                    <h2 data-i18n="chat.welcome">你好，欢迎使用 AI 智能助手</h2>
+                                    <p data-i18n="chat.welcome.desc">我可以帮你编写代码、分析数据、生成文档、回答问题等</p>
                                     <div class="chat-suggestions">
                                         <button class="chat-suggestion" onclick="useSuggestion(this)">
                                             <i class="ri-code-s-slash-line"></i>
-                                            <span>帮我写一个Python爬虫脚本</span>
+                                            <span data-i18n="chat.suggest1">帮我写一个Python爬虫脚本</span>
                                         </button>
                                         <button class="chat-suggestion" onclick="useSuggestion(this)">
                                             <i class="ri-file-text-line"></i>
-                                            <span>帮我生成一份项目周报</span>
+                                            <span data-i18n="chat.suggest2">帮我生成一份项目周报</span>
                                         </button>
                                         <button class="chat-suggestion" onclick="useSuggestion(this)">
                                             <i class="ri-translate"></i>
-                                            <span>将以下内容翻译成英文</span>
+                                            <span data-i18n="chat.suggest3">将以下内容翻译成英文</span>
                                         </button>
                                         <button class="chat-suggestion" onclick="useSuggestion(this)">
                                             <i class="ri-bar-chart-box-line"></i>
-                                            <span>分析这份销售数据的趋势</span>
-                                        </button>
+                                            <span data-i18n="chat.suggest4">分析这份销售数据的趋势</span>
                                     </div>
                                 </div>
                                 <!-- Messages will be appended here -->
@@ -264,13 +266,13 @@
                                             <i class="ri-mic-line"></i>
                                         </button>
                                     </div>
-                                    <textarea id="chat-input" placeholder="输入你的问题... (Enter发送, Shift+Enter换行)" rows="1" onkeydown="handleChatKeydown(event)" oninput="autoResizeInput(this)"></textarea>
+                                    <textarea id="chat-input" placeholder="输入你的问题... (Enter发送, Shift+Enter换行)" rows="1" onkeydown="handleChatKeydown(event)" oninput="autoResizeInput(this)" data-i18n-placeholder="chat.input"></textarea>
                                     <button class="chat-send-btn" id="chat-send-btn" onclick="sendMessage()">
                                         <i class="ri-send-plane-fill"></i>
                                     </button>
                                 </div>
                                 <div class="chat-input-footer">
-                                    <span>AI 生成的内容仅供参考，请注意核实</span>
+                                    <span data-i18n="chat.disclaimer">AI 生成的内容仅供参考，请注意核实</span>
                                     <span>Token: <strong id="token-count">0</strong></span>
                                 </div>
                             </div>
@@ -853,6 +855,7 @@
     <div class="toast-container" id="toast-container"></div>
 
     <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
