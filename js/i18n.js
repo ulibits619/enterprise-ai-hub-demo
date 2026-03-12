@@ -50,21 +50,38 @@ const I18N = {
 
         // Apps
         'apps.title': '应用中心',
-        'apps.desc': '探索和使用企业级AI应用，提升工作效率',
-        'apps.all': '全部应用',
+        'apps.desc': '发现并使用企业级AI应用，提升工作效率',
+        'apps.all': '全部',
+        'apps.chat': '智能对话',
+        'apps.agent': '智能体',
+        'apps.tool': 'AI工具',
+        'apps.workflow': '工作流',
+        'apps.searchPlaceholder': '搜索应用...',
 
         // Store
         'store.title': '资产商店',
-        'store.desc': '发现和复用高质量AI资产，加速业务创新',
+        'store.desc': '沉淀与复用优质提示词、SKILL和智能体方案',
+        'store.all': '全部',
+        'store.prompt': '提示词',
+        'store.agent': '智能体',
+        'store.workflow': '工作流',
+        'store.sortHot': '热度排序',
+        'store.sortNew': '最新发布',
+        'store.sortTop': '评分最高',
+        'store.publish': '发布资产',
 
         // Tools
         'tools.title': '部门工具',
-        'tools.desc': '各部门自研AI工具集中管理与共享',
+        'tools.desc': '各部门自研AI工具集，管理员控制可见与下载权限',
         'tools.upload': '上传工具',
+        'tools.searchPlaceholder': '搜索工具...',
 
         // Workspace
         'workspace.title': '个人工作台',
-        'workspace.desc': '管理你的收藏、历史记录和个人资产',
+        'workspace.desc': '管理你的应用、收藏和最近使用',
+        'workspace.recent': '最近使用',
+        'workspace.favorites': '我的收藏',
+        'workspace.mine': '我的资产',
 
         // Dashboard
         'dashboard.title': '数据看板',
@@ -81,7 +98,17 @@ const I18N = {
         'chart.distribution': '应用调用分布',
         'chart.7days': '近7天',
         'chart.30days': '近30天',
-        'chart.topAssets': 'Top 资产排行',
+        'chart.topAssets': '热门资产 TOP 10',
+        'chart.deptTokens': '部门Token消耗',
+        'chart.export': '导出',
+
+        // Table headers
+        'table.rank': '排名',
+        'table.assetName': '资产名称',
+        'table.type': '类型',
+        'table.usage': '使用次数',
+        'table.rating': '评分',
+        'table.trend': '趋势',
 
         // Admin
         'admin.title': '管理后台',
@@ -93,6 +120,17 @@ const I18N = {
         'admin.addUser': '添加用户',
         'admin.searchUser': '搜索用户...',
         'admin.allDepts': '全部部门',
+        'admin.deptRD': '研发部',
+        'admin.deptProduct': '产品部',
+        'admin.deptMarketing': '市场部',
+        'admin.deptOps': '运营部',
+        'admin.th.user': '用户',
+        'admin.th.email': '邮箱',
+        'admin.th.dept': '部门',
+        'admin.th.role': '角色',
+        'admin.th.status': '状态',
+        'admin.th.lastLogin': '最后登录',
+        'admin.th.actions': '操作',
 
         // Lang
         'lang.toggle': '中/EN'
@@ -147,20 +185,37 @@ const I18N = {
         // Apps
         'apps.title': 'App Center',
         'apps.desc': 'Explore and use enterprise AI apps to boost productivity',
-        'apps.all': 'All Apps',
+        'apps.all': 'All',
+        'apps.chat': 'Chat AI',
+        'apps.agent': 'Agents',
+        'apps.tool': 'AI Tools',
+        'apps.workflow': 'Workflows',
+        'apps.searchPlaceholder': 'Search apps...',
 
         // Store
         'store.title': 'Asset Store',
         'store.desc': 'Discover and reuse high-quality AI assets to accelerate innovation',
+        'store.all': 'All',
+        'store.prompt': 'Prompts',
+        'store.agent': 'Agents',
+        'store.workflow': 'Workflows',
+        'store.sortHot': 'Trending',
+        'store.sortNew': 'Newest',
+        'store.sortTop': 'Top Rated',
+        'store.publish': 'Publish Asset',
 
         // Tools
         'tools.title': 'Dept. Tools',
         'tools.desc': 'Centralized management and sharing of department-built AI tools',
         'tools.upload': 'Upload Tool',
+        'tools.searchPlaceholder': 'Search tools...',
 
         // Workspace
         'workspace.title': 'Workspace',
-        'workspace.desc': 'Manage your favorites, history, and personal assets',
+        'workspace.desc': 'Manage your apps, favorites, and recent history',
+        'workspace.recent': 'Recent',
+        'workspace.favorites': 'Favorites',
+        'workspace.mine': 'My Assets',
 
         // Dashboard
         'dashboard.title': 'Dashboard',
@@ -177,7 +232,17 @@ const I18N = {
         'chart.distribution': 'App Usage Distribution',
         'chart.7days': 'Last 7 Days',
         'chart.30days': 'Last 30 Days',
-        'chart.topAssets': 'Top Assets',
+        'chart.topAssets': 'Top 10 Assets',
+        'chart.deptTokens': 'Dept. Token Usage',
+        'chart.export': 'Export',
+
+        // Table headers
+        'table.rank': 'Rank',
+        'table.assetName': 'Asset Name',
+        'table.type': 'Type',
+        'table.usage': 'Usage Count',
+        'table.rating': 'Rating',
+        'table.trend': 'Trend',
 
         // Admin
         'admin.title': 'Admin Panel',
@@ -189,6 +254,17 @@ const I18N = {
         'admin.addUser': 'Add User',
         'admin.searchUser': 'Search users...',
         'admin.allDepts': 'All Departments',
+        'admin.deptRD': 'R&D',
+        'admin.deptProduct': 'Product',
+        'admin.deptMarketing': 'Marketing',
+        'admin.deptOps': 'Operations',
+        'admin.th.user': 'User',
+        'admin.th.email': 'Email',
+        'admin.th.dept': 'Department',
+        'admin.th.role': 'Role',
+        'admin.th.status': 'Status',
+        'admin.th.lastLogin': 'Last Login',
+        'admin.th.actions': 'Actions',
 
         // Lang
         'lang.toggle': 'EN/中'

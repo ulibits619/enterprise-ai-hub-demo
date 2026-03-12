@@ -328,20 +328,20 @@
                 <!-- ========== APPS PAGE ========== -->
                 <div class="page" id="page-apps">
                     <div class="page-header">
-                        <h1><i class="ri-apps-2-line"></i> 应用中心</h1>
-                        <p>发现并使用企业级AI应用，提升工作效率</p>
+                        <h1><i class="ri-apps-2-line"></i> <span data-i18n="apps.title">应用中心</span></h1>
+                        <p data-i18n="apps.desc">发现并使用企业级AI应用，提升工作效率</p>
                     </div>
                     <div class="filter-bar">
                         <div class="filter-tabs">
-                            <button class="filter-tab active" onclick="filterApps('all', this)">全部</button>
-                            <button class="filter-tab" onclick="filterApps('chat', this)">智能对话</button>
-                            <button class="filter-tab" onclick="filterApps('agent', this)">智能体</button>
-                            <button class="filter-tab" onclick="filterApps('tool', this)">AI工具</button>
-                            <button class="filter-tab" onclick="filterApps('workflow', this)">工作流</button>
+                            <button class="filter-tab active" onclick="filterApps('all', this)" data-i18n="apps.all">全部</button>
+                            <button class="filter-tab" onclick="filterApps('chat', this)" data-i18n="apps.chat">智能对话</button>
+                            <button class="filter-tab" onclick="filterApps('agent', this)" data-i18n="apps.agent">智能体</button>
+                            <button class="filter-tab" onclick="filterApps('tool', this)" data-i18n="apps.tool">AI工具</button>
+                            <button class="filter-tab" onclick="filterApps('workflow', this)" data-i18n="apps.workflow">工作流</button>
                         </div>
                         <div class="filter-search">
                             <i class="ri-search-line"></i>
-                            <input type="text" placeholder="搜索应用...">
+                            <input type="text" placeholder="搜索应用..." data-i18n-placeholder="apps.searchPlaceholder">
                         </div>
                     </div>
                     <div class="app-grid full" id="apps-grid"></div>
@@ -350,25 +350,25 @@
                 <!-- ========== STORE PAGE ========== -->
                 <div class="page" id="page-store">
                     <div class="page-header">
-                        <h1><i class="ri-store-3-line"></i> 资产商店</h1>
-                        <p>沉淀与复用优质提示词、SKILL和智能体方案</p>
+                        <h1><i class="ri-store-3-line"></i> <span data-i18n="store.title">资产商店</span></h1>
+                        <p data-i18n="store.desc">沉淀与复用优质提示词、SKILL和智能体方案</p>
                     </div>
                     <div class="filter-bar">
                         <div class="filter-tabs">
-                            <button class="filter-tab active" onclick="filterAssets('all', this)">全部</button>
-                            <button class="filter-tab" onclick="filterAssets('prompt', this)">提示词</button>
+                            <button class="filter-tab active" onclick="filterAssets('all', this)" data-i18n="store.all">全部</button>
+                            <button class="filter-tab" onclick="filterAssets('prompt', this)" data-i18n="store.prompt">提示词</button>
                             <button class="filter-tab" onclick="filterAssets('skill', this)">SKILL</button>
-                            <button class="filter-tab" onclick="filterAssets('agent', this)">智能体</button>
-                            <button class="filter-tab" onclick="filterAssets('workflow', this)">工作流</button>
+                            <button class="filter-tab" onclick="filterAssets('agent', this)" data-i18n="store.agent">智能体</button>
+                            <button class="filter-tab" onclick="filterAssets('workflow', this)" data-i18n="store.workflow">工作流</button>
                         </div>
                         <div class="filter-actions">
                             <select class="filter-select">
-                                <option>热度排序</option>
-                                <option>最新发布</option>
-                                <option>评分最高</option>
+                                <option data-i18n="store.sortHot">热度排序</option>
+                                <option data-i18n="store.sortNew">最新发布</option>
+                                <option data-i18n="store.sortTop">评分最高</option>
                             </select>
                             <button class="btn-primary btn-sm" onclick="showPublishModal()">
-                                <i class="ri-add-line"></i> 发布资产
+                                <i class="ri-add-line"></i> <span data-i18n="store.publish">发布资产</span>
                             </button>
                         </div>
                     </div>
@@ -378,18 +378,18 @@
                 <!-- ========== WORKSPACE PAGE ========== -->
                 <div class="page" id="page-workspace">
                     <div class="page-header">
-                        <h1><i class="ri-briefcase-line"></i> 个人工作台</h1>
-                        <p>管理你的应用、收藏和最近使用</p>
+                        <h1><i class="ri-briefcase-line"></i> <span data-i18n="workspace.title">个人工作台</span></h1>
+                        <p data-i18n="workspace.desc">管理你的应用、收藏和最近使用</p>
                     </div>
                     <div class="workspace-tabs">
                         <button class="ws-tab active" onclick="switchWorkspaceTab('recent', this)">
-                            <i class="ri-time-line"></i> 最近使用
+                            <i class="ri-time-line"></i> <span data-i18n="workspace.recent">最近使用</span>
                         </button>
                         <button class="ws-tab" onclick="switchWorkspaceTab('favorites', this)">
-                            <i class="ri-heart-line"></i> 我的收藏
+                            <i class="ri-heart-line"></i> <span data-i18n="workspace.favorites">我的收藏</span>
                         </button>
                         <button class="ws-tab" onclick="switchWorkspaceTab('mine', this)">
-                            <i class="ri-folder-user-line"></i> 我的资产
+                            <i class="ri-folder-user-line"></i> <span data-i18n="workspace.mine">我的资产</span>
                         </button>
                     </div>
                     <div class="workspace-content" id="workspace-content"></div>
@@ -398,15 +398,15 @@
                 <!-- ========== DASHBOARD PAGE ========== -->
                 <div class="page" id="page-dashboard">
                     <div class="page-header">
-                        <h1><i class="ri-bar-chart-grouped-line"></i> 数据看板</h1>
-                        <p>全链路数据统计与分析，辅助管理决策</p>
+                        <h1><i class="ri-bar-chart-grouped-line"></i> <span data-i18n="dashboard.title">数据看板</span></h1>
+                        <p data-i18n="dashboard.desc">全链路数据统计与分析，辅助管理决策</p>
                     </div>
                     <!-- Overview Stats (from admin) -->
                     <div class="stats-grid" id="admin-stats-grid">
                         <div class="stat-card gradient-blue">
                             <div class="stat-card-icon"><i class="ri-robot-2-line"></i></div>
                             <div class="stat-card-info">
-                                <span class="stat-label">今日调用</span>
+                                <span class="stat-label" data-i18n="stat.calls">今日调用</span>
                                 <span class="stat-value counter" data-target="8432">0</span>
                             </div>
                             <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 12.5%</div>
@@ -414,7 +414,7 @@
                         <div class="stat-card gradient-purple">
                             <div class="stat-card-icon"><i class="ri-group-line"></i></div>
                             <div class="stat-card-info">
-                                <span class="stat-label">活跃用户</span>
+                                <span class="stat-label" data-i18n="stat.users">活跃用户</span>
                                 <span class="stat-value counter" data-target="523">0</span>
                             </div>
                             <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 8.2%</div>
@@ -422,7 +422,7 @@
                         <div class="stat-card gradient-green">
                             <div class="stat-card-icon"><i class="ri-coins-line"></i></div>
                             <div class="stat-card-info">
-                                <span class="stat-label">Token消耗</span>
+                                <span class="stat-label" data-i18n="stat.tokens">Token消耗</span>
                                 <span class="stat-value counter" data-target="2150000">0</span>
                             </div>
                             <div class="stat-trend down"><i class="ri-arrow-down-line"></i> 3.1%</div>
@@ -430,7 +430,7 @@
                         <div class="stat-card gradient-orange">
                             <div class="stat-card-icon"><i class="ri-download-cloud-line"></i></div>
                             <div class="stat-card-info">
-                                <span class="stat-label">资产复用率</span>
+                                <span class="stat-label" data-i18n="stat.reuse">资产复用率</span>
                                 <span class="stat-value">67.8%</span>
                             </div>
                             <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 5.4%</div>
@@ -442,7 +442,7 @@
                             <div class="dash-stat-icon blue"><i class="ri-user-follow-line"></i></div>
                             <div class="dash-stat-content">
                                 <span class="dash-stat-value">1,280</span>
-                                <span class="dash-stat-label">注册用户</span>
+                                <span class="dash-stat-label" data-i18n="stat.registered">注册用户</span>
                             </div>
                             <span class="dash-stat-change up">+156 本月</span>
                         </div>
@@ -450,7 +450,7 @@
                             <div class="dash-stat-icon purple"><i class="ri-flashlight-line"></i></div>
                             <div class="dash-stat-content">
                                 <span class="dash-stat-value">245,800</span>
-                                <span class="dash-stat-label">月调用量</span>
+                                <span class="dash-stat-label" data-i18n="stat.monthly">月调用量</span>
                             </div>
                             <span class="dash-stat-change up">+18.5%</span>
                         </div>
@@ -458,7 +458,7 @@
                             <div class="dash-stat-icon green"><i class="ri-money-cny-circle-line"></i></div>
                             <div class="dash-stat-content">
                                 <span class="dash-stat-value">¥32,450</span>
-                                <span class="dash-stat-label">月Token成本</span>
+                                <span class="dash-stat-label" data-i18n="stat.cost">月Token成本</span>
                             </div>
                             <span class="dash-stat-change down">-5.2%</span>
                         </div>
@@ -466,7 +466,7 @@
                             <div class="dash-stat-icon orange"><i class="ri-star-line"></i></div>
                             <div class="dash-stat-content">
                                 <span class="dash-stat-value">4.6</span>
-                                <span class="dash-stat-label">平均满意度</span>
+                                <span class="dash-stat-label" data-i18n="stat.satisfaction">平均满意度</span>
                             </div>
                             <span class="dash-stat-change up">+0.3</span>
                         </div>
@@ -475,17 +475,17 @@
                     <div class="charts-row">
                         <div class="chart-card large">
                             <div class="chart-header">
-                                <h3>使用趋势</h3>
+                                <h3 data-i18n="chart.trend">使用趋势</h3>
                                 <div class="chart-actions">
-                                    <button class="chart-tab active" onclick="switchTrend('week', this)">近7天</button>
-                                    <button class="chart-tab" onclick="switchTrend('month', this)">近30天</button>
+                                    <button class="chart-tab active" onclick="switchTrend('week', this)" data-i18n="chart.7days">近7天</button>
+                                    <button class="chart-tab" onclick="switchTrend('month', this)" data-i18n="chart.30days">近30天</button>
                                 </div>
                             </div>
                             <div class="chart-body" id="chart-trend"></div>
                         </div>
                         <div class="chart-card">
                             <div class="chart-header">
-                                <h3>应用调用分布</h3>
+                                <h3 data-i18n="chart.distribution">应用调用分布</h3>
                             </div>
                             <div class="chart-body" id="chart-distribution"></div>
                         </div>
@@ -493,27 +493,27 @@
                     <div class="charts-row">
                         <div class="chart-card">
                             <div class="chart-header">
-                                <h3>部门Token消耗</h3>
+                                <h3 data-i18n="chart.deptTokens">部门Token消耗</h3>
                             </div>
                             <div class="chart-body" id="chart-tokens"></div>
                         </div>
                         <div class="chart-card large">
                             <div class="chart-header">
-                                <h3>热门资产 TOP 10</h3>
+                                <h3 data-i18n="chart.topAssets">热门资产 TOP 10</h3>
                                 <button class="btn-outline btn-xs">
-                                    <i class="ri-download-line"></i> 导出
+                                    <i class="ri-download-line"></i> <span data-i18n="chart.export">导出</span>
                                 </button>
                             </div>
                             <div class="chart-body" id="chart-top-assets">
                                 <table class="data-table">
                                     <thead>
                                         <tr>
-                                            <th>排名</th>
-                                            <th>资产名称</th>
-                                            <th>类型</th>
-                                            <th>使用次数</th>
-                                            <th>评分</th>
-                                            <th>趋势</th>
+                                            <th data-i18n="table.rank">排名</th>
+                                            <th data-i18n="table.assetName">资产名称</th>
+                                            <th data-i18n="table.type">类型</th>
+                                            <th data-i18n="table.usage">使用次数</th>
+                                            <th data-i18n="table.rating">评分</th>
+                                            <th data-i18n="table.trend">趋势</th>
                                         </tr>
                                     </thead>
                                     <tbody id="top-assets-body"></tbody>
@@ -526,8 +526,8 @@
                 <!-- ========== TOOLS PAGE ========== -->
                 <div class="page" id="page-tools">
                     <div class="page-header">
-                        <h1><i class="ri-tools-line"></i> 部门工具</h1>
-                        <p>各部门自研AI工具集，管理员控制可见与下载权限</p>
+                        <h1><i class="ri-tools-line"></i> <span data-i18n="tools.title">部门工具</span></h1>
+                        <p data-i18n="tools.desc">各部门自研AI工具集，管理员控制可见与下载权限</p>
                     </div>
                     <div class="filter-bar">
                         <div class="filter-tabs">
@@ -538,10 +538,10 @@
                         <div class="filter-right">
                             <div class="filter-search">
                                 <i class="ri-search-line"></i>
-                                <input type="text" placeholder="搜索工具...">
+                                <input type="text" placeholder="搜索工具..." data-i18n-placeholder="tools.searchPlaceholder">
                             </div>
                             <button class="btn-primary" onclick="showToolUploadModal()">
-                                <i class="ri-upload-cloud-line"></i> 上传工具
+                                <i class="ri-upload-cloud-line"></i> <span data-i18n="tools.upload">上传工具</span>
                             </button>
                         </div>
                     </div>
@@ -551,22 +551,22 @@
                 <!-- ========== ADMIN PAGE ========== -->
                 <div class="page" id="page-admin">
                     <div class="page-header">
-                        <h1><i class="ri-settings-3-line"></i> 管理后台</h1>
-                        <p>用户管理、角色权限、工具审核、审计日志</p>
+                        <h1><i class="ri-settings-3-line"></i> <span data-i18n="admin.title">管理后台</span></h1>
+                        <p data-i18n="admin.desc">用户管理、角色权限、工具审核、审计日志</p>
                     </div>
 
                     <div class="admin-tabs">
                         <button class="admin-tab active" onclick="switchAdminTab('users', this)">
-                            <i class="ri-user-settings-line"></i> 用户管理
+                            <i class="ri-user-settings-line"></i> <span data-i18n="admin.users">用户管理</span>
                         </button>
                         <button class="admin-tab" onclick="switchAdminTab('roles', this)">
-                            <i class="ri-shield-user-line"></i> 角色管理
+                            <i class="ri-shield-user-line"></i> <span data-i18n="admin.roles">角色管理</span>
                         </button>
                         <button class="admin-tab" onclick="switchAdminTab('audit', this)">
-                            <i class="ri-file-search-line"></i> 审计日志
+                            <i class="ri-file-search-line"></i> <span data-i18n="admin.audit">审计日志</span>
                         </button>
                         <button class="admin-tab" onclick="switchAdminTab('tool-audit', this)">
-                            <i class="ri-tools-line"></i> 工具审核
+                            <i class="ri-tools-line"></i> <span data-i18n="admin.toolAudit">工具审核</span>
                         </button>
                     </div>
                     <div class="admin-content" id="admin-content">
@@ -576,30 +576,30 @@
                                 <div class="toolbar-left">
                                     <div class="filter-search">
                                         <i class="ri-search-line"></i>
-                                        <input type="text" placeholder="搜索用户...">
+                                        <input type="text" placeholder="搜索用户..." data-i18n-placeholder="admin.searchUser">
                                     </div>
                                     <select class="filter-select">
-                                        <option>全部部门</option>
-                                        <option>研发部</option>
-                                        <option>产品部</option>
-                                        <option>市场部</option>
-                                        <option>运营部</option>
+                                        <option data-i18n="admin.allDepts">全部部门</option>
+                                        <option data-i18n="admin.deptRD">研发部</option>
+                                        <option data-i18n="admin.deptProduct">产品部</option>
+                                        <option data-i18n="admin.deptMarketing">市场部</option>
+                                        <option data-i18n="admin.deptOps">运营部</option>
                                     </select>
                                 </div>
                                 <button class="btn-primary btn-sm">
-                                    <i class="ri-user-add-line"></i> 添加用户
+                                    <i class="ri-user-add-line"></i> <span data-i18n="admin.addUser">添加用户</span>
                                 </button>
                             </div>
                             <table class="data-table">
                                 <thead>
                                     <tr>
-                                        <th>用户</th>
-                                        <th>邮箱</th>
-                                        <th>部门</th>
-                                        <th>角色</th>
-                                        <th>状态</th>
-                                        <th>最后登录</th>
-                                        <th>操作</th>
+                                        <th data-i18n="admin.th.user">用户</th>
+                                        <th data-i18n="admin.th.email">邮箱</th>
+                                        <th data-i18n="admin.th.dept">部门</th>
+                                        <th data-i18n="admin.th.role">角色</th>
+                                        <th data-i18n="admin.th.status">状态</th>
+                                        <th data-i18n="admin.th.lastLogin">最后登录</th>
+                                        <th data-i18n="admin.th.actions">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-table-body"></tbody>
