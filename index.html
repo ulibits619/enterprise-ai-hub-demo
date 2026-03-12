@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI应用门户 - Enterprise AI Hub</title>
+    <meta name="description" content="统一企业级AI能力入口，消除孤岛，沉淀资产，实现管理透明与业务赋能">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ==================== LOGIN PAGE ==================== -->
+    <div id="login-page" class="login-page">
+        <div class="login-bg">
+            <div class="login-particles" id="particles"></div>
+        </div>
+        <div class="login-container">
+            <div class="login-left">
+                <div class="login-brand">
+                    <div class="login-logo">
+                        <i class="ri-brain-line"></i>
+                    </div>
+                    <h1>企业AI应用门户</h1>
+                    <p class="login-subtitle">Enterprise AI Hub</p>
+                </div>
+                <div class="login-features">
+                    <div class="login-feature-item">
+                        <i class="ri-apps-2-line"></i>
+                        <span>统一AI入口，协同效率提升30%</span>
+                    </div>
+                    <div class="login-feature-item">
+                        <i class="ri-store-3-line"></i>
+                        <span>应用商店化资产管理与复用</span>
+                    </div>
+                    <div class="login-feature-item">
+                        <i class="ri-bar-chart-grouped-line"></i>
+                        <span>全链路数据驱动决策</span>
+                    </div>
+                    <div class="login-feature-item">
+                        <i class="ri-shield-check-line"></i>
+                        <span>企业级权限与安全保障</span>
+                    </div>
+                </div>
+            </div>
+            <div class="login-right">
+                <div class="login-card glass-card">
+                    <h2>欢迎登录</h2>
+                    <p class="login-card-sub">登录以访问企业AI能力平台</p>
+                    <form id="login-form" onsubmit="return handleLogin(event)">
+                        <div class="form-group">
+                            <label for="username"><i class="ri-user-line"></i> 用户名</label>
+                            <input type="text" id="username" placeholder="请输入企业账号" value="admin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="ri-lock-line"></i> 密码</label>
+                            <input type="password" id="password" placeholder="请输入密码" value="admin123" required>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked> 记住登录状态
+                            </label>
+                            <a href="#" class="forgot-link">忘记密码？</a>
+                        </div>
+                        <button type="submit" class="btn-primary btn-login" id="login-btn">
+                            <i class="ri-login-box-line"></i> 登 录
+                        </button>
+                        <div class="login-divider">
+                            <span>或</span>
+                        </div>
+                        <button type="button" class="btn-sso" onclick="handleLogin(event)">
+                            <i class="ri-building-line"></i> 企业SSO统一登录
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APP ==================== -->
+    <div id="app" class="app hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="ri-brain-line"></i>
+                </div>
+                <span class="sidebar-title">AI Hub</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="nav-item active" data-page="home" onclick="navigate('home')">
+                    <i class="ri-chat-smile-2-line"></i>
+                    <span>AI 对话</span>
+                </a>
+                <a class="nav-item" data-page="apps" onclick="navigate('apps')">
+                    <i class="ri-apps-2-line"></i>
+                    <span>应用中心</span>
+                </a>
+                <a class="nav-item" data-page="store" onclick="navigate('store')">
+                    <i class="ri-store-3-line"></i>
+                    <span>资产商店</span>
+                </a>
+                <a class="nav-item" data-page="tools" onclick="navigate('tools')">
+                    <i class="ri-tools-line"></i>
+                    <span>部门工具</span>
+                </a>
+                <a class="nav-item" data-page="workspace" onclick="navigate('workspace')">
+                    <i class="ri-briefcase-line"></i>
+                    <span>个人工作台</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a class="nav-item" data-page="dashboard" onclick="navigate('dashboard')">
+                    <i class="ri-bar-chart-grouped-line"></i>
+                    <span>数据看板</span>
+                </a>
+                <a class="nav-item" data-page="admin" onclick="navigate('admin')">
+                    <i class="ri-settings-3-line"></i>
+                    <span>管理后台</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="avatar">A</div>
+                    <div class="user-info">
+                        <span class="user-name">管理员</span>
+                        <span class="user-role">超级管理员</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span>门户首页</span>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <div class="global-search">
+                        <i class="ri-search-line"></i>
+                        <input type="text" placeholder="搜索应用、资产、提示词..." id="global-search">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-icon-btn" title="通知">
+                        <i class="ri-notification-3-line"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <button class="header-icon-btn" title="主题切换" onclick="toggleTheme()">
+                        <i class="ri-moon-line" id="theme-icon"></i>
+                    </button>
+                    <div class="header-user" onclick="handleLogout()">
+                        <div class="avatar-sm">A</div>
+                        <span>退出</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Container -->
+            <div class="page-container" id="page-container">
+
+                <!-- ========== HOME PAGE (AI CHAT) ========== -->
+                <div class="page active" id="page-home">
+                    <div class="chat-layout">
+                        <!-- Chat Main Area -->
+                        <div class="chat-main">
+                            <!-- Chat Header -->
+                            <div class="chat-header">
+                                <div class="chat-header-left">
+                                    <div class="chat-model-icon">
+                                        <i class="ri-brain-line"></i>
+                                    </div>
+                                    <div>
+                                        <h2>AI 智能助手</h2>
+                                        <span class="chat-model-tag">GPT-4o · 企业版</span>
+                                    </div>
+                                </div>
+                                <div class="chat-header-right">
+                                    <button class="chat-action-btn" title="新建对话" onclick="clearChat()">
+                                        <i class="ri-add-circle-line"></i>
+                                    </button>
+                                    <button class="chat-action-btn" title="对话历史" onclick="toggleChatHistory()">
+                                        <i class="ri-history-line"></i>
+                                    </button>
+                                    <button class="chat-action-btn" title="设置">
+                                        <i class="ri-settings-4-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Chat Messages -->
+                            <div class="chat-messages" id="chat-messages">
+                                <!-- Welcome state -->
+                                <div class="chat-welcome" id="chat-welcome">
+                                    <div class="chat-welcome-icon">
+                                        <i class="ri-brain-line"></i>
+                                    </div>
+                                    <h2>你好，欢迎使用 AI 智能助手</h2>
+                                    <p>我可以帮你编写代码、分析数据、生成文档、回答问题等</p>
+                                    <div class="chat-suggestions">
+                                        <button class="chat-suggestion" onclick="useSuggestion(this)">
+                                            <i class="ri-code-s-slash-line"></i>
+                                            <span>帮我写一个Python爬虫脚本</span>
+                                        </button>
+                                        <button class="chat-suggestion" onclick="useSuggestion(this)">
+                                            <i class="ri-file-text-line"></i>
+                                            <span>帮我生成一份项目周报</span>
+                                        </button>
+                                        <button class="chat-suggestion" onclick="useSuggestion(this)">
+                                            <i class="ri-translate"></i>
+                                            <span>将以下内容翻译成英文</span>
+                                        </button>
+                                        <button class="chat-suggestion" onclick="useSuggestion(this)">
+                                            <i class="ri-bar-chart-box-line"></i>
+                                            <span>分析这份销售数据的趋势</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Messages will be appended here -->
+                            </div>
+
+                            <!-- Chat Input -->
+                            <div class="chat-input-area">
+                                <div class="chat-input-wrapper">
+                                    <div class="chat-input-tools">
+                                        <button class="chat-tool-btn" title="上传文件">
+                                            <i class="ri-attachment-2"></i>
+                                        </button>
+                                        <button class="chat-tool-btn" title="选择提示词" onclick="showToast('info', '打开提示词库')">
+                                            <i class="ri-magic-line"></i>
+                                        </button>
+                                        <button class="chat-tool-btn" title="语音输入">
+                                            <i class="ri-mic-line"></i>
+                                        </button>
+                                    </div>
+                                    <textarea id="chat-input" placeholder="输入你的问题... (Enter发送, Shift+Enter换行)" rows="1" onkeydown="handleChatKeydown(event)" oninput="autoResizeInput(this)"></textarea>
+                                    <button class="chat-send-btn" id="chat-send-btn" onclick="sendMessage()">
+                                        <i class="ri-send-plane-fill"></i>
+                                    </button>
+                                </div>
+                                <div class="chat-input-footer">
+                                    <span>AI 生成的内容仅供参考，请注意核实</span>
+                                    <span>Token: <strong id="token-count">0</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Sidebar: History -->
+                        <div class="chat-sidebar" id="chat-sidebar">
+                            <div class="chat-sidebar-header">
+                                <h3><i class="ri-history-line"></i> 对话历史</h3>
+                                <button class="chat-action-btn" onclick="toggleChatHistory()">
+                                    <i class="ri-close-line"></i>
+                                </button>
+                            </div>
+                            <div class="chat-history-list" id="chat-history-list">
+                                <div class="chat-history-group">
+                                    <span class="chat-history-date">今天</span>
+                                    <div class="chat-history-item active" onclick="loadHistoryChat(0)">
+                                        <i class="ri-chat-1-line"></i>
+                                        <span>新对话</span>
+                                    </div>
+                                </div>
+                                <div class="chat-history-group">
+                                    <span class="chat-history-date">昨天</span>
+                                    <div class="chat-history-item" onclick="loadHistoryChat(1)">
+                                        <i class="ri-chat-1-line"></i>
+                                        <span>Python数据处理脚本</span>
+                                    </div>
+                                    <div class="chat-history-item" onclick="loadHistoryChat(2)">
+                                        <i class="ri-chat-1-line"></i>
+                                        <span>Q1营销方案讨论</span>
+                                    </div>
+                                </div>
+                                <div class="chat-history-group">
+                                    <span class="chat-history-date">3月9日</span>
+                                    <div class="chat-history-item" onclick="loadHistoryChat(3)">
+                                        <i class="ri-chat-1-line"></i>
+                                        <span>API接口文档生成</span>
+                                    </div>
+                                    <div class="chat-history-item" onclick="loadHistoryChat(4)">
+                                        <i class="ri-chat-1-line"></i>
+                                        <span>数据库优化建议</span>
+                                    </div>
+                                    <div class="chat-history-item" onclick="loadHistoryChat(5)">
+                                        <i class="ri-chat-1-line"></i>
+                                        <span>竞品分析报告</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== APPS PAGE ========== -->
+                <div class="page" id="page-apps">
+                    <div class="page-header">
+                        <h1><i class="ri-apps-2-line"></i> 应用中心</h1>
+                        <p>发现并使用企业级AI应用，提升工作效率</p>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterApps('all', this)">全部</button>
+                            <button class="filter-tab" onclick="filterApps('chat', this)">智能对话</button>
+                            <button class="filter-tab" onclick="filterApps('agent', this)">智能体</button>
+                            <button class="filter-tab" onclick="filterApps('tool', this)">AI工具</button>
+                            <button class="filter-tab" onclick="filterApps('workflow', this)">工作流</button>
+                        </div>
+                        <div class="filter-search">
+                            <i class="ri-search-line"></i>
+                            <input type="text" placeholder="搜索应用...">
+                        </div>
+                    </div>
+                    <div class="app-grid full" id="apps-grid"></div>
+                </div>
+
+                <!-- ========== STORE PAGE ========== -->
+                <div class="page" id="page-store">
+                    <div class="page-header">
+                        <h1><i class="ri-store-3-line"></i> 资产商店</h1>
+                        <p>沉淀与复用优质提示词、SKILL和智能体方案</p>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterAssets('all', this)">全部</button>
+                            <button class="filter-tab" onclick="filterAssets('prompt', this)">提示词</button>
+                            <button class="filter-tab" onclick="filterAssets('skill', this)">SKILL</button>
+                            <button class="filter-tab" onclick="filterAssets('agent', this)">智能体</button>
+                            <button class="filter-tab" onclick="filterAssets('workflow', this)">工作流</button>
+                        </div>
+                        <div class="filter-actions">
+                            <select class="filter-select">
+                                <option>热度排序</option>
+                                <option>最新发布</option>
+                                <option>评分最高</option>
+                            </select>
+                            <button class="btn-primary btn-sm" onclick="showPublishModal()">
+                                <i class="ri-add-line"></i> 发布资产
+                            </button>
+                        </div>
+                    </div>
+                    <div class="asset-grid full" id="store-grid"></div>
+                </div>
+
+                <!-- ========== WORKSPACE PAGE ========== -->
+                <div class="page" id="page-workspace">
+                    <div class="page-header">
+                        <h1><i class="ri-briefcase-line"></i> 个人工作台</h1>
+                        <p>管理你的应用、收藏和最近使用</p>
+                    </div>
+                    <div class="workspace-tabs">
+                        <button class="ws-tab active" onclick="switchWorkspaceTab('recent', this)">
+                            <i class="ri-time-line"></i> 最近使用
+                        </button>
+                        <button class="ws-tab" onclick="switchWorkspaceTab('favorites', this)">
+                            <i class="ri-heart-line"></i> 我的收藏
+                        </button>
+                        <button class="ws-tab" onclick="switchWorkspaceTab('mine', this)">
+                            <i class="ri-folder-user-line"></i> 我的资产
+                        </button>
+                    </div>
+                    <div class="workspace-content" id="workspace-content"></div>
+                </div>
+
+                <!-- ========== DASHBOARD PAGE ========== -->
+                <div class="page" id="page-dashboard">
+                    <div class="page-header">
+                        <h1><i class="ri-bar-chart-grouped-line"></i> 数据看板</h1>
+                        <p>全链路数据统计与分析，辅助管理决策</p>
+                    </div>
+                    <!-- Dashboard Stats -->
+                    <div class="dashboard-stats">
+                        <div class="dash-stat-card">
+                            <div class="dash-stat-icon blue"><i class="ri-user-follow-line"></i></div>
+                            <div class="dash-stat-content">
+                                <span class="dash-stat-value">1,280</span>
+                                <span class="dash-stat-label">注册用户</span>
+                            </div>
+                            <span class="dash-stat-change up">+156 本月</span>
+                        </div>
+                        <div class="dash-stat-card">
+                            <div class="dash-stat-icon purple"><i class="ri-flashlight-line"></i></div>
+                            <div class="dash-stat-content">
+                                <span class="dash-stat-value">245,800</span>
+                                <span class="dash-stat-label">月调用量</span>
+                            </div>
+                            <span class="dash-stat-change up">+18.5%</span>
+                        </div>
+                        <div class="dash-stat-card">
+                            <div class="dash-stat-icon green"><i class="ri-money-cny-circle-line"></i></div>
+                            <div class="dash-stat-content">
+                                <span class="dash-stat-value">¥32,450</span>
+                                <span class="dash-stat-label">月Token成本</span>
+                            </div>
+                            <span class="dash-stat-change down">-5.2%</span>
+                        </div>
+                        <div class="dash-stat-card">
+                            <div class="dash-stat-icon orange"><i class="ri-star-line"></i></div>
+                            <div class="dash-stat-content">
+                                <span class="dash-stat-value">4.6</span>
+                                <span class="dash-stat-label">平均满意度</span>
+                            </div>
+                            <span class="dash-stat-change up">+0.3</span>
+                        </div>
+                    </div>
+                    <!-- Charts Row -->
+                    <div class="charts-row">
+                        <div class="chart-card large">
+                            <div class="chart-header">
+                                <h3>使用趋势</h3>
+                                <div class="chart-actions">
+                                    <button class="chart-tab active" onclick="switchTrend('week', this)">近7天</button>
+                                    <button class="chart-tab" onclick="switchTrend('month', this)">近30天</button>
+                                </div>
+                            </div>
+                            <div class="chart-body" id="chart-trend"></div>
+                        </div>
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>应用调用分布</h3>
+                            </div>
+                            <div class="chart-body" id="chart-distribution"></div>
+                        </div>
+                    </div>
+                    <div class="charts-row">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>部门Token消耗</h3>
+                            </div>
+                            <div class="chart-body" id="chart-tokens"></div>
+                        </div>
+                        <div class="chart-card large">
+                            <div class="chart-header">
+                                <h3>热门资产 TOP 10</h3>
+                                <button class="btn-outline btn-xs">
+                                    <i class="ri-download-line"></i> 导出
+                                </button>
+                            </div>
+                            <div class="chart-body" id="chart-top-assets">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>排名</th>
+                                            <th>资产名称</th>
+                                            <th>类型</th>
+                                            <th>使用次数</th>
+                                            <th>评分</th>
+                                            <th>趋势</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="top-assets-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== TOOLS PAGE ========== -->
+                <div class="page" id="page-tools">
+                    <div class="page-header">
+                        <h1><i class="ri-tools-line"></i> 部门工具</h1>
+                        <p>各部门自研AI工具集，管理员控制可见与下载权限</p>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterTools('all', this)">All</button>
+                            <button class="filter-tab" onclick="filterTools('python', this)">Python</button>
+                            <button class="filter-tab" onclick="filterTools('shell', this)">Shell</button>
+                        </div>
+                        <div class="filter-right">
+                            <div class="filter-search">
+                                <i class="ri-search-line"></i>
+                                <input type="text" placeholder="搜索工具...">
+                            </div>
+                            <button class="btn-primary" onclick="showToolUploadModal()">
+                                <i class="ri-upload-cloud-line"></i> 上传工具
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tool-grid" id="tools-grid"></div>
+                </div>
+
+                <!-- ========== ADMIN PAGE ========== -->
+                <div class="page" id="page-admin">
+                    <div class="page-header">
+                        <h1><i class="ri-settings-3-line"></i> 管理后台</h1>
+                        <p>用户管理、角色权限、工具审核、审计日志</p>
+                    </div>
+                    <!-- Stats Cards (moved from home) -->
+                    <div class="stats-grid" id="admin-stats-grid">
+                        <div class="stat-card gradient-blue">
+                            <div class="stat-card-icon"><i class="ri-robot-2-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">今日调用</span>
+                                <span class="stat-value counter" data-target="8432">0</span>
+                            </div>
+                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 12.5%</div>
+                        </div>
+                        <div class="stat-card gradient-purple">
+                            <div class="stat-card-icon"><i class="ri-group-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">活跃用户</span>
+                                <span class="stat-value counter" data-target="523">0</span>
+                            </div>
+                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 8.2%</div>
+                        </div>
+                        <div class="stat-card gradient-green">
+                            <div class="stat-card-icon"><i class="ri-coins-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">Token消耗</span>
+                                <span class="stat-value counter" data-target="2150000">0</span>
+                            </div>
+                            <div class="stat-trend down"><i class="ri-arrow-down-line"></i> 3.1%</div>
+                        </div>
+                        <div class="stat-card gradient-orange">
+                            <div class="stat-card-icon"><i class="ri-download-cloud-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">资产复用率</span>
+                                <span class="stat-value">67.8%</span>
+                            </div>
+                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 5.4%</div>
+                        </div>
+                    </div>
+                    <div class="admin-tabs">
+                        <button class="admin-tab active" onclick="switchAdminTab('users', this)">
+                            <i class="ri-user-settings-line"></i> 用户管理
+                        </button>
+                        <button class="admin-tab" onclick="switchAdminTab('roles', this)">
+                            <i class="ri-shield-user-line"></i> 角色管理
+                        </button>
+                        <button class="admin-tab" onclick="switchAdminTab('audit', this)">
+                            <i class="ri-file-search-line"></i> 审计日志
+                        </button>
+                        <button class="admin-tab" onclick="switchAdminTab('tool-audit', this)">
+                            <i class="ri-tools-line"></i> 工具审核
+                        </button>
+                    </div>
+                    <div class="admin-content" id="admin-content">
+                        <!-- Users Table -->
+                        <div class="admin-panel active" id="panel-users">
+                            <div class="table-toolbar">
+                                <div class="toolbar-left">
+                                    <div class="filter-search">
+                                        <i class="ri-search-line"></i>
+                                        <input type="text" placeholder="搜索用户...">
+                                    </div>
+                                    <select class="filter-select">
+                                        <option>全部部门</option>
+                                        <option>研发部</option>
+                                        <option>产品部</option>
+                                        <option>市场部</option>
+                                        <option>运营部</option>
+                                    </select>
+                                </div>
+                                <button class="btn-primary btn-sm">
+                                    <i class="ri-user-add-line"></i> 添加用户
+                                </button>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>用户</th>
+                                        <th>邮箱</th>
+                                        <th>部门</th>
+                                        <th>角色</th>
+                                        <th>状态</th>
+                                        <th>最后登录</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body"></tbody>
+                            </table>
+                            <div class="table-pagination">
+                                <span>共 1,280 条记录</span>
+                                <div class="pagination-btns">
+                                    <button class="pg-btn"><i class="ri-arrow-left-s-line"></i></button>
+                                    <button class="pg-btn active">1</button>
+                                    <button class="pg-btn">2</button>
+                                    <button class="pg-btn">3</button>
+                                    <span>...</span>
+                                    <button class="pg-btn">128</button>
+                                    <button class="pg-btn"><i class="ri-arrow-right-s-line"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Roles Panel -->
+                        <div class="admin-panel" id="panel-roles">
+                            <div class="roles-grid" id="roles-grid"></div>
+                        </div>
+                        <!-- Audit Panel -->
+                        <div class="admin-panel" id="panel-audit">
+                            <div class="table-toolbar">
+                                <div class="toolbar-left">
+                                    <div class="filter-search">
+                                        <i class="ri-search-line"></i>
+                                        <input type="text" placeholder="搜索操作记录...">
+                                    </div>
+                                    <select class="filter-select">
+                                        <option>全部操作</option>
+                                        <option>登录</option>
+                                        <option>资产发布</option>
+                                        <option>权限变更</option>
+                                        <option>配置修改</option>
+                                    </select>
+                                </div>
+                                <button class="btn-outline btn-sm">
+                                    <i class="ri-download-line"></i> 导出日志
+                                </button>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>时间</th>
+                                        <th>用户</th>
+                                        <th>操作</th>
+                                        <th>资源</th>
+                                        <th>详情</th>
+                                        <th>IP地址</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="audit-table-body"></tbody>
+                            </table>
+                        </div>
+                        <!-- Tool Audit Panel -->
+                        <div class="admin-panel" id="panel-tool-audit">
+                            <div class="table-toolbar">
+                                <div class="toolbar-left">
+                                    <div class="filter-search">
+                                        <i class="ri-search-line"></i>
+                                        <input type="text" placeholder="搜索工具...">
+                                    </div>
+                                    <select class="filter-select">
+                                        <option>全部状态</option>
+                                        <option>待审核</option>
+                                        <option>已上架</option>
+                                        <option>已驳回</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>工具名称</th>
+                                        <th>类型</th>
+                                        <th>所属部门</th>
+                                        <th>上传者</th>
+                                        <th>可见范围</th>
+                                        <th>下载权限</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tool-audit-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== MODAL: Publish Asset ==================== -->
+    <div class="modal-overlay hidden" id="publish-modal">
+        <div class="modal glass-card">
+            <div class="modal-header">
+                <h2><i class="ri-upload-cloud-line"></i> 发布资产</h2>
+                <button class="modal-close" onclick="closePublishModal()"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>资产名称</label>
+                    <input type="text" placeholder="给你的资产起一个好名字">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>资产类型</label>
+                        <select class="filter-select full">
+                            <option>提示词 (Prompt)</option>
+                            <option>SKILL</option>
+                            <option>智能体 (Agent)</option>
+                            <option>工作流 (Workflow)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>业务分类</label>
+                        <select class="filter-select full">
+                            <option>通用</option>
+                            <option>研发</option>
+                            <option>营销</option>
+                            <option>客服</option>
+                            <option>人事</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>标签</label>
+                    <input type="text" placeholder="输入标签，用逗号分隔">
+                </div>
+                <div class="form-group">
+                    <label>描述</label>
+                    <textarea placeholder="详细描述你的资产功能和使用方法" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>资产内容</label>
+                    <textarea placeholder="输入提示词内容或配置JSON" rows="6" class="code-textarea"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>可见范围</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="visibility" value="public" checked> 公开</label>
+                        <label class="radio-label"><input type="radio" name="visibility" value="dept"> 本部门</label>
+                        <label class="radio-label"><input type="radio" name="visibility" value="private"> 仅自己</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closePublishModal()">取消</button>
+                <button class="btn-primary" onclick="submitPublish()">
+                    <i class="ri-send-plane-line"></i> 提交审核
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: Upload Tool ==================== -->
+    <div class="modal-overlay hidden" id="tool-upload-modal">
+        <div class="modal glass-card">
+            <div class="modal-header">
+                <h2><i class="ri-upload-cloud-line"></i> 上传部门工具</h2>
+                <button class="modal-close" onclick="closeToolUploadModal()"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label><i class="ri-tools-line"></i> 工具名称</label>
+                    <input type="text" placeholder="例如：供应链需求预测程序">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>工具类型</label>
+                        <select class="filter-select full">
+                            <option>Python 脚本</option>
+                            <option>Shell 脚本</option>
+                            <option>可执行文件</option>
+                            <option>其他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>所属部门</label>
+                        <select class="filter-select full">
+                            <option>供应链计划部</option>
+                            <option>财务部</option>
+                            <option>市场部</option>
+                            <option>研发部</option>
+                            <option>人事部</option>
+                            <option>数据部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-upload-2-line"></i> 上传文件</label>
+                    <div class="file-upload-area" onclick="showToast('info', '文件选择器（Demo模拟）')">
+                        <i class="ri-file-add-line"></i>
+                        <p>点击或拖拽文件到此处</p>
+                        <span>支持 .py, .sh, .zip 等格式，最大50MB</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-terminal-box-line"></i> 运行环境</label>
+                    <input type="text" placeholder="例如：Python 3.10 | pandas, scikit-learn">
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-file-text-line"></i> 使用说明</label>
+                    <textarea rows="4" placeholder="描述工具的功能、使用方法、注意事项..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closeToolUploadModal()">取消</button>
+                <button class="btn-primary" onclick="submitToolUpload()"><i class="ri-upload-cloud-line"></i> 提交审核</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: Tool Permission ==================== -->
+    <div class="modal-overlay hidden" id="tool-perm-modal">
+        <div class="modal glass-card">
+            <div class="modal-header">
+                <h2><i class="ri-shield-keyhole-line"></i> 权限管控</h2>
+                <button class="modal-close" onclick="closeToolPermModal()"><i class="ri-close-line"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="perm-tool-name" id="perm-tool-name"></div>
+                <div class="form-group">
+                    <label><i class="ri-eye-line"></i> 可见范围</label>
+                    <select class="filter-select full" id="perm-visibility">
+                        <option value="all">全员可见</option>
+                        <option value="department">指定部门可见</option>
+                        <option value="user">指定人员可见</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="ri-download-line"></i> 下载权限</label>
+                    <select class="filter-select full" id="perm-download">
+                        <option value="all">全员可下载</option>
+                        <option value="department">指定部门可下载</option>
+                        <option value="user">指定人员可下载</option>
+                        <option value="none">仅可在线查看</option>
+                    </select>
+                </div>
+                <div class="perm-rule-hint">
+                    <i class="ri-information-line"></i> 下载范围不能超出可见范围
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closeToolPermModal()">取消</button>
+                <button class="btn-primary" onclick="saveToolPerm()"><i class="ri-save-line"></i> 保存权限</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
