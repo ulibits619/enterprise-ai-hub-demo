@@ -377,6 +377,41 @@
                         <h1><i class="ri-bar-chart-grouped-line"></i> 数据看板</h1>
                         <p>全链路数据统计与分析，辅助管理决策</p>
                     </div>
+                    <!-- Overview Stats (from admin) -->
+                    <div class="stats-grid" id="admin-stats-grid">
+                        <div class="stat-card gradient-blue">
+                            <div class="stat-card-icon"><i class="ri-robot-2-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">今日调用</span>
+                                <span class="stat-value counter" data-target="8432">0</span>
+                            </div>
+                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 12.5%</div>
+                        </div>
+                        <div class="stat-card gradient-purple">
+                            <div class="stat-card-icon"><i class="ri-group-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">活跃用户</span>
+                                <span class="stat-value counter" data-target="523">0</span>
+                            </div>
+                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 8.2%</div>
+                        </div>
+                        <div class="stat-card gradient-green">
+                            <div class="stat-card-icon"><i class="ri-coins-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">Token消耗</span>
+                                <span class="stat-value counter" data-target="2150000">0</span>
+                            </div>
+                            <div class="stat-trend down"><i class="ri-arrow-down-line"></i> 3.1%</div>
+                        </div>
+                        <div class="stat-card gradient-orange">
+                            <div class="stat-card-icon"><i class="ri-download-cloud-line"></i></div>
+                            <div class="stat-card-info">
+                                <span class="stat-label">资产复用率</span>
+                                <span class="stat-value">67.8%</span>
+                            </div>
+                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 5.4%</div>
+                        </div>
+                    </div>
                     <!-- Dashboard Stats -->
                     <div class="dashboard-stats">
                         <div class="dash-stat-card">
@@ -495,41 +530,7 @@
                         <h1><i class="ri-settings-3-line"></i> 管理后台</h1>
                         <p>用户管理、角色权限、工具审核、审计日志</p>
                     </div>
-                    <!-- Stats Cards (moved from home) -->
-                    <div class="stats-grid" id="admin-stats-grid">
-                        <div class="stat-card gradient-blue">
-                            <div class="stat-card-icon"><i class="ri-robot-2-line"></i></div>
-                            <div class="stat-card-info">
-                                <span class="stat-label">今日调用</span>
-                                <span class="stat-value counter" data-target="8432">0</span>
-                            </div>
-                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 12.5%</div>
-                        </div>
-                        <div class="stat-card gradient-purple">
-                            <div class="stat-card-icon"><i class="ri-group-line"></i></div>
-                            <div class="stat-card-info">
-                                <span class="stat-label">活跃用户</span>
-                                <span class="stat-value counter" data-target="523">0</span>
-                            </div>
-                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 8.2%</div>
-                        </div>
-                        <div class="stat-card gradient-green">
-                            <div class="stat-card-icon"><i class="ri-coins-line"></i></div>
-                            <div class="stat-card-info">
-                                <span class="stat-label">Token消耗</span>
-                                <span class="stat-value counter" data-target="2150000">0</span>
-                            </div>
-                            <div class="stat-trend down"><i class="ri-arrow-down-line"></i> 3.1%</div>
-                        </div>
-                        <div class="stat-card gradient-orange">
-                            <div class="stat-card-icon"><i class="ri-download-cloud-line"></i></div>
-                            <div class="stat-card-info">
-                                <span class="stat-label">资产复用率</span>
-                                <span class="stat-value">67.8%</span>
-                            </div>
-                            <div class="stat-trend up"><i class="ri-arrow-up-line"></i> 5.4%</div>
-                        </div>
-                    </div>
+
                     <div class="admin-tabs">
                         <button class="admin-tab active" onclick="switchAdminTab('users', this)">
                             <i class="ri-user-settings-line"></i> 用户管理

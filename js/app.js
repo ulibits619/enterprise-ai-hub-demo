@@ -102,10 +102,6 @@ function navigate(page) {
     // Re-init charts if needed
     if (page === 'dashboard') {
         setTimeout(() => initCharts(), 200);
-    }
-    
-    // Animate counters when admin page is shown
-    if (page === 'admin') {
         animateCounters();
     }
     
