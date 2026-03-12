@@ -494,8 +494,12 @@ input, select, textarea { font-family: inherit; }
 
 /* Sidebar Chat History Sub-list */
 .nav-sub-list {
-    padding: 2px 0 6px 0;
+    max-height: 0;
     overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+.nav-sub-list.open {
+    max-height: 500px;
 }
 
 .nav-sub-item {

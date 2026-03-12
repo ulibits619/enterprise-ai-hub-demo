@@ -108,6 +108,14 @@ function navigate(page) {
         animateCounters();
     }
     
+    // Toggle sidebar chat history sub-list
+    const subList = document.getElementById('sidebar-chat-history');
+    if (page === 'home') {
+        subList.classList.toggle('open');
+    } else {
+        subList.classList.remove('open');
+    }
+    
     // Scroll to top
     document.getElementById('page-container').scrollTop = 0;
 }
