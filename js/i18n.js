@@ -110,6 +110,47 @@ const I18N = {
         'table.rating': '评分',
         'table.trend': '趋势',
 
+        // Dynamic content
+        'dynamic.calls': '次调用',
+        'dynamic.openApp': '打开应用',
+        'dynamic.viewAsset': '查看资产',
+        'dynamic.addFav': '已添加到收藏',
+        'dynamic.removeFav': '已取消收藏',
+        'dynamic.statusActive': '启用',
+        'dynamic.statusInactive': '禁用',
+        'dynamic.statusPending': '待审核',
+        'dynamic.edit': '编辑',
+        'dynamic.permissions': '权限',
+        'dynamic.more': '更多',
+        'dynamic.systemRole': '系统预置',
+        'dynamic.customRole': '自定义',
+        'dynamic.userCount': '位用户',
+        'dynamic.totalRecords': '共 1,280 条记录',
+        'dynamic.switchTo7d': '切换至近7天视图',
+        'dynamic.switchTo30d': '切换至近30天视图',
+        'dynamic.assetSubmitted': '资产已提交审核，请等待管理员审批',
+        'dynamic.pendingReview': '待审核',
+        'dynamic.reviewing': '审核中',
+        'dynamic.download': '下载',
+        'dynamic.downloads': '下载',
+        'dynamic.requestAccess': '申请权限',
+        'dynamic.viewDetail': '查看详情',
+        // Chart labels
+        'chart.callCount': '调用次数',
+        'chart.activeUsers': '活跃用户',
+        'chart.userCount': '用户数',
+        'chart.chatAI': '智能对话',
+        'chart.agents': '智能体',
+        'chart.aiTools': 'AI工具',
+        'chart.workflows': '工作流',
+        'chart.deptHR': '人事部',
+        'chart.deptOps': '运营部',
+        'chart.deptCS': '客服部',
+        'chart.deptMkt': '市场部',
+        'chart.deptProd': '产品部',
+        'chart.deptData': '数据部',
+        'chart.deptRD': '研发部',
+
         // Admin
         'admin.title': '管理后台',
         'admin.desc': '用户管理、角色权限、工具审核、审计日志',
@@ -244,6 +285,47 @@ const I18N = {
         'table.rating': 'Rating',
         'table.trend': 'Trend',
 
+        // Dynamic content
+        'dynamic.calls': 'calls',
+        'dynamic.openApp': 'Open app',
+        'dynamic.viewAsset': 'View asset',
+        'dynamic.addFav': 'Added to favorites',
+        'dynamic.removeFav': 'Removed from favorites',
+        'dynamic.statusActive': 'Active',
+        'dynamic.statusInactive': 'Disabled',
+        'dynamic.statusPending': 'Pending',
+        'dynamic.edit': 'Edit',
+        'dynamic.permissions': 'Permissions',
+        'dynamic.more': 'More',
+        'dynamic.systemRole': 'System',
+        'dynamic.customRole': 'Custom',
+        'dynamic.userCount': 'users',
+        'dynamic.totalRecords': '1,280 records total',
+        'dynamic.switchTo7d': 'Switched to 7-day view',
+        'dynamic.switchTo30d': 'Switched to 30-day view',
+        'dynamic.assetSubmitted': 'Asset submitted for review',
+        'dynamic.pendingReview': 'Pending',
+        'dynamic.reviewing': 'Reviewing',
+        'dynamic.download': 'Download',
+        'dynamic.downloads': 'downloads',
+        'dynamic.requestAccess': 'Request Access',
+        'dynamic.viewDetail': 'View Details',
+        // Chart labels
+        'chart.callCount': 'Call Count',
+        'chart.activeUsers': 'Active Users',
+        'chart.userCount': 'Users',
+        'chart.chatAI': 'Chat AI',
+        'chart.agents': 'Agents',
+        'chart.aiTools': 'AI Tools',
+        'chart.workflows': 'Workflows',
+        'chart.deptHR': 'HR',
+        'chart.deptOps': 'Operations',
+        'chart.deptCS': 'Support',
+        'chart.deptMkt': 'Marketing',
+        'chart.deptProd': 'Product',
+        'chart.deptData': 'Data',
+        'chart.deptRD': 'R&D',
+
         // Admin
         'admin.title': 'Admin Panel',
         'admin.desc': 'User management, role permissions, tool audit, audit logs',
@@ -273,6 +355,11 @@ const I18N = {
 
 let currentLang = 'zh';
 
+// Helper: get translation for key
+function t(key) {
+    return (I18N[currentLang] && I18N[currentLang][key]) || key;
+}
+
 function toggleLang() {
     currentLang = currentLang === 'zh' ? 'en' : 'zh';
     applyLang();
@@ -285,18 +372,33 @@ function toggleLang() {
 }
 
 function applyLang() {
-    const t = I18N[currentLang];
+    const tr = I18N[currentLang];
     // Update all data-i18n text elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (t[key]) el.textContent = t[key];
+        if (tr[key]) el.textContent = tr[key];
     });
     // Update all data-i18n-placeholder elements
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if (t[key]) el.placeholder = t[key];
+        if (tr[key]) el.placeholder = tr[key];
     });
     // Update lang toggle button text
     const langBtn = document.getElementById('lang-btn');
-    if (langBtn) langBtn.textContent = t['lang.toggle'];
+    if (langBtn) langBtn.textContent = tr['lang.toggle'];
+    // Re-render dynamic content
+    if (typeof renderUsersTable === 'function') renderUsersTable();
+    if (typeof renderRolesGrid === 'function') renderRolesGrid();
+    if (typeof renderAppsGrid === 'function') renderAppsGrid('all');
+    if (typeof renderStoreGrid === 'function') renderStoreGrid('all');
+    if (typeof renderWorkspace === 'function') renderWorkspace('recent');
+    if (typeof renderTopAssetsTable === 'function') renderTopAssetsTable();
+    if (typeof renderToolsGrid === 'function') renderToolsGrid('all');
+    // Re-render pagination text
+    const paginationSpan = document.querySelector('.table-pagination > span');
+    if (paginationSpan) paginationSpan.textContent = t('dynamic.totalRecords');
+    // Re-init charts for new labels
+    if (typeof initCharts === 'function' && document.getElementById('page-dashboard')) {
+        setTimeout(() => initCharts(), 100);
+    }
 }

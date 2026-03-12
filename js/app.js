@@ -139,7 +139,7 @@ function toggleTheme() {
 
 function renderAppCard(app) {
     return `
-        <div class="app-card" onclick="showToast('info', '打开应用: ${app.name}')">
+        <div class="app-card" onclick="showToast('info', '${t('dynamic.openApp')}: ${app.name}')">
             <div class="app-card-header">
                 <div class="app-icon" style="background: ${app.gradient}">
                     <i class="${app.icon}"></i>
@@ -151,7 +151,7 @@ function renderAppCard(app) {
             </div>
             <div class="app-card-desc">${app.desc}</div>
             <div class="app-card-footer">
-                <div class="app-card-stat"><i class="ri-bar-chart-line"></i> ${formatNumber(app.usage)} 次调用</div>
+                <div class="app-card-stat"><i class="ri-bar-chart-line"></i> ${formatNumber(app.usage)} ${t('dynamic.calls')}</div>
                 <div class="app-card-stat"><i class="ri-user-line"></i> ${app.users}</div>
             </div>
         </div>
@@ -162,7 +162,7 @@ function renderAssetCard(asset) {
     const badgeClass = 'badge-' + asset.type;
     const stars = '★'.repeat(Math.floor(asset.rating)) + (asset.rating % 1 >= 0.5 ? '½' : '');
     return `
-        <div class="asset-card" onclick="showToast('info', '查看资产: ${asset.name}')">
+        <div class="asset-card" onclick="showToast('info', '${t('dynamic.viewAsset')}: ${asset.name}')">
             <div class="asset-card-header">
                 <span class="asset-type-badge ${badgeClass}">${asset.typeName}</span>
                 <button class="asset-fav-btn ${asset.favorited ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav(this)">
@@ -243,8 +243,8 @@ function renderUsersTable() {
     body.innerHTML = USERS_DATA.map(u => {
         const statusClass = u.status === 'active' ? 'status-active' :
                            u.status === 'inactive' ? 'status-inactive' : 'status-pending';
-        const statusText = u.status === 'active' ? '启用' :
-                          u.status === 'inactive' ? '禁用' : '待审核';
+        const statusText = u.status === 'active' ? t('dynamic.statusActive') :
+                          u.status === 'inactive' ? t('dynamic.statusInactive') : t('dynamic.statusPending');
         return `
             <tr>
                 <td>
@@ -260,9 +260,9 @@ function renderUsersTable() {
                 <td>${u.lastLogin}</td>
                 <td>
                     <div class="action-btns">
-                        <button class="action-btn" title="编辑"><i class="ri-edit-line"></i></button>
-                        <button class="action-btn" title="权限"><i class="ri-shield-user-line"></i></button>
-                        <button class="action-btn" title="更多"><i class="ri-more-line"></i></button>
+                        <button class="action-btn" title="${t('dynamic.edit')}"><i class="ri-edit-line"></i></button>
+                        <button class="action-btn" title="${t('dynamic.permissions')}"><i class="ri-shield-user-line"></i></button>
+                        <button class="action-btn" title="${t('dynamic.more')}"><i class="ri-more-line"></i></button>
                     </div>
                 </td>
             </tr>
@@ -277,14 +277,14 @@ function renderRolesGrid() {
         <div class="role-card">
             <div class="role-card-header">
                 <span class="role-name">${r.name}</span>
-                ${r.isSystem ? '<span class="role-system">系统预置</span>' : '<span class="role-system" style="background:rgba(249,115,22,0.12);color:#f97316">自定义</span>'}
+                ${r.isSystem ? '<span class="role-system">' + t('dynamic.systemRole') + '</span>' : '<span class="role-system" style="background:rgba(249,115,22,0.12);color:#f97316">' + t('dynamic.customRole') + '</span>'}
             </div>
             <div class="role-desc">${r.desc}</div>
             <div class="role-permissions">
                 ${r.permissions.map(p => `<span class="role-perm-tag">${p}</span>`).join('')}
             </div>
             <div class="role-user-count">
-                <i class="ri-group-line"></i> ${r.userCount} 位用户
+                <i class="ri-group-line"></i> ${r.userCount} ${t('dynamic.userCount')}
             </div>
         </div>
     `).join('');
@@ -343,23 +343,23 @@ function initCharts() {
         trendChart = echarts.init(trendDom);
         trendChart.setOption({
             tooltip: { trigger: 'axis', backgroundColor: isDarkTheme ? '#1e2235' : '#fff', borderColor: lineColor, textStyle: { color: isDarkTheme ? '#f0f2f5' : '#1a1d2e' } },
-            legend: { data: ['调用次数', '活跃用户'], textStyle: { color: textColor }, top: 0 },
+            legend: { data: [t('chart.callCount'), t('chart.activeUsers')], textStyle: { color: textColor }, top: 0 },
             grid: { left: 50, right: 20, top: 40, bottom: 30 },
             xAxis: { type: 'category', data: ['3/5', '3/6', '3/7', '3/8', '3/9', '3/10', '3/11'], axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: textColor } },
             yAxis: [
-                { type: 'value', name: '调用次数', axisLine: { show: false }, splitLine: { lineStyle: { color: lineColor } }, axisLabel: { color: textColor }, nameTextStyle: { color: textColor } },
-                { type: 'value', name: '用户数', axisLine: { show: false }, splitLine: { show: false }, axisLabel: { color: textColor }, nameTextStyle: { color: textColor } },
+                { type: 'value', name: t('chart.callCount'), axisLine: { show: false }, splitLine: { lineStyle: { color: lineColor } }, axisLabel: { color: textColor }, nameTextStyle: { color: textColor } },
+                { type: 'value', name: t('chart.userCount'), axisLine: { show: false }, splitLine: { show: false }, axisLabel: { color: textColor }, nameTextStyle: { color: textColor } },
             ],
             series: [
                 {
-                    name: '调用次数', type: 'bar', barWidth: 24, yAxisIndex: 0,
+                    name: t('chart.callCount'), type: 'bar', barWidth: 24, yAxisIndex: 0,
                     data: [6200, 7100, 6800, 7500, 8200, 7900, 8432],
                     itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                         { offset: 0, color: '#4f6ef7' }, { offset: 1, color: 'rgba(79,110,247,0.2)' }
                     ]), borderRadius: [4, 4, 0, 0] }
                 },
                 {
-                    name: '活跃用户', type: 'line', smooth: true, yAxisIndex: 1,
+                    name: t('chart.activeUsers'), type: 'line', smooth: true, yAxisIndex: 1,
                     data: [410, 445, 420, 480, 510, 490, 523],
                     lineStyle: { color: '#a855f7', width: 3 },
                     itemStyle: { color: '#a855f7' },
@@ -382,10 +382,10 @@ function initCharts() {
                 type: 'pie', radius: ['45%', '72%'], center: ['50%', '52%'],
                 label: { color: textColor, fontSize: 12 },
                 data: [
-                    { value: 35, name: '智能对话', itemStyle: { color: '#4f6ef7' } },
-                    { value: 25, name: '智能体', itemStyle: { color: '#22c55e' } },
-                    { value: 22, name: 'AI工具', itemStyle: { color: '#a855f7' } },
-                    { value: 18, name: '工作流', itemStyle: { color: '#f97316' } }
+                    { value: 35, name: t('chart.chatAI'), itemStyle: { color: '#4f6ef7' } },
+                    { value: 25, name: t('chart.agents'), itemStyle: { color: '#22c55e' } },
+                    { value: 22, name: t('chart.aiTools'), itemStyle: { color: '#a855f7' } },
+                    { value: 18, name: t('chart.workflows'), itemStyle: { color: '#f97316' } }
                 ],
                 emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.3)' } }
             }]
@@ -401,7 +401,7 @@ function initCharts() {
             tooltip: { trigger: 'axis', backgroundColor: isDarkTheme ? '#1e2235' : '#fff', borderColor: lineColor, textStyle: { color: isDarkTheme ? '#f0f2f5' : '#1a1d2e' } },
             grid: { left: 80, right: 20, top: 20, bottom: 30 },
             xAxis: { type: 'value', axisLine: { lineStyle: { color: lineColor } }, splitLine: { lineStyle: { color: lineColor } }, axisLabel: { color: textColor } },
-            yAxis: { type: 'category', data: ['人事部', '运营部', '客服部', '市场部', '产品部', '数据部', '研发部'], axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: textColor } },
+            yAxis: { type: 'category', data: [t('chart.deptHR'), t('chart.deptOps'), t('chart.deptCS'), t('chart.deptMkt'), t('chart.deptProd'), t('chart.deptData'), t('chart.deptRD')], axisLine: { lineStyle: { color: lineColor } }, axisLabel: { color: textColor } },
             series: [{
                 type: 'bar', barWidth: 18,
                 data: [
@@ -431,7 +431,7 @@ function switchTrend(period, btn) {
     document.querySelectorAll('.chart-actions .chart-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     // In a real app, would fetch different data; here just visual feedback
-    showToast('info', '切换至' + (period === 'week' ? '近7天' : '近30天') + '视图');
+    showToast('info', period === 'week' ? t('dynamic.switchTo7d') : t('dynamic.switchTo30d'));
 }
 
 // ---- Modal ----
@@ -445,7 +445,7 @@ function closePublishModal() {
 
 function submitPublish() {
     closePublishModal();
-    showToast('success', '资产已提交审核，请等待管理员审批');
+    showToast('success', t('dynamic.assetSubmitted'));
 }
 
 // ---- Favorites Toggle ----
@@ -454,10 +454,10 @@ function toggleFav(btn) {
     const icon = btn.querySelector('i');
     if (btn.classList.contains('active')) {
         icon.className = 'ri-heart-fill';
-        showToast('success', '已添加到收藏');
+        showToast('success', t('dynamic.addFav'));
     } else {
         icon.className = 'ri-heart-line';
-        showToast('info', '已取消收藏');
+        showToast('info', t('dynamic.removeFav'));
     }
 }
 
@@ -871,7 +871,7 @@ function renderToolsGrid(filter) {
         const canDownload = tool.downloadPerm === 'all';
         return `
         <div class="tool-card ${isPending ? 'pending-card' : ''}">
-            ${isPending ? '<div class="tool-card-pending-badge"><i class="ri-time-line"></i> 待审核</div>' : ''}
+            ${isPending ? '<div class="tool-card-pending-badge"><i class="ri-time-line"></i> ' + t('dynamic.pendingReview') + '</div>' : ''}
             <div class="tool-card-header">
                 <div class="tool-card-icon" style="background:${tool.gradient}"><i class="${tool.icon}"></i></div>
                 <div class="tool-card-title-group">
@@ -881,11 +881,11 @@ function renderToolsGrid(filter) {
                 <span class="tool-card-type-badge ${tool.type === 'shell' ? 'shell' : ''}">${tool.typeName}</span>
             </div>
             <div class="tool-card-desc">${tool.desc}</div>
-            <div class="tool-card-tags">${tool.tags.map(t => '<span class="tag">' + t + '</span>').join('')}</div>
+            <div class="tool-card-tags">${tool.tags.map(tg => '<span class="tag">' + tg + '</span>').join('')}</div>
             <div class="tool-card-meta">
                 <span><i class="ri-file-zip-line"></i> ${tool.fileSize}</span>
                 <span><i class="ri-price-tag-3-line"></i> ${tool.version}</span>
-                <span><i class="ri-download-line"></i> ${tool.downloads} 下载</span>
+                <span><i class="ri-download-line"></i> ${tool.downloads} ${t('dynamic.downloads')}</span>
             </div>
             <div class="tool-card-env"><i class="ri-terminal-box-line"></i> ${tool.env}</div>
             <div class="tool-card-permissions">
@@ -898,10 +898,10 @@ function renderToolsGrid(filter) {
                     ${tool.author}
                 </div>
                 <div class="tool-card-actions">
-                    ${isPending ? '<button class="btn-tool" disabled><i class="ri-time-line"></i> 审核中</button>' :
-                      canDownload ? '<button class="btn-tool download-btn" onclick="downloadTool(\'' + tool.name + '\')"><i class="ri-download-line"></i> 下载</button>' :
-                                    '<button class="btn-tool request-btn" onclick="requestToolAccess(\'' + tool.name + '\')"><i class="ri-lock-line"></i> 申请权限</button>'}
-                    <button class="btn-tool" onclick="showToast('info', '查看详情: ${tool.name}')"><i class="ri-eye-line"></i></button>
+                    ${isPending ? '<button class="btn-tool" disabled><i class="ri-time-line"></i> ' + t('dynamic.reviewing') + '</button>' :
+                      canDownload ? '<button class="btn-tool download-btn" onclick="downloadTool(\'' + tool.name + '\')"><i class="ri-download-line"></i> ' + t('dynamic.download') + '</button>' :
+                                    '<button class="btn-tool request-btn" onclick="requestToolAccess(\'' + tool.name + '\')"><i class="ri-lock-line"></i> ' + t('dynamic.requestAccess') + '</button>'}
+                    <button class="btn-tool" onclick="showToast('info', '${t('dynamic.viewDetail')}: ${tool.name}')"><i class="ri-eye-line"></i></button>
                 </div>
             </div>
         </div>`;
