@@ -2,7 +2,7 @@
 
 // ---- State ----
 let currentPage = 'home';
-let isDarkTheme = true;
+let isDarkTheme = false;
 
 // ---- Init ----
 document.addEventListener('DOMContentLoaded', () => {
@@ -40,6 +40,9 @@ function handleLogout() {
 
 function showApp() {
     document.getElementById('login-page').classList.add('hidden');
+    // Apply default theme
+    document.body.classList.toggle('light-theme', !isDarkTheme);
+    document.getElementById('theme-icon').className = isDarkTheme ? 'ri-moon-line' : 'ri-sun-line';
     document.getElementById('app').classList.remove('hidden');
     initApp();
 }
